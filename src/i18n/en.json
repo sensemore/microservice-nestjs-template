@@ -1,0 +1,4 @@
+{
+    "common.notfound": "Resource not found",
+    "validation.deviceClassIsRequired": "Device class is required"
+}
