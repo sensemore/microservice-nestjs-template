@@ -14,6 +14,7 @@ import {
   ISaveGateway,
 } from "usecases/createDevice/entityGateways";
 import { MongoDbModule } from "infrastructure/database/mongodb.module";
+import { deviceMapper } from "infrastructure/database/entityMappers";
 
 @Injectable()
 export class SaveDevice_gateway extends DatabaseAccess implements ISaveDevice {
@@ -80,8 +81,7 @@ export class FindDevice_gateway extends DatabaseAccess implements IFindDevice {
       return null;
     }
 
-    let device = new Device();
-    device.id = result._id.toString();
+    let device = deviceMapper(result);
     return device;
   }
 }

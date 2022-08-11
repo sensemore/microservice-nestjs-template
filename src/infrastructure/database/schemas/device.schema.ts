@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Types } from "mongoose";
+import { Document, SchemaTypes } from "mongoose";
+import { DeviceTypeModel } from "./deviceType.schema";
 export type DeviceDocument = DeviceModel & Document;
 
 @Schema()
@@ -10,8 +11,8 @@ export class DeviceModel {
   macAddress: string;
   @Prop()
   version: string;
-  @Prop()
-  deviceType: Types.ObjectId;
+  @Prop({ type: SchemaTypes.ObjectId, ref: "deviceTypes" })
+  deviceType: DeviceTypeModel;
   @Prop()
   createdDate: Date;
   @Prop()
