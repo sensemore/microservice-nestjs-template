@@ -36,7 +36,6 @@ export class CreateDeviceController extends BaseController {
     private configService: ConfigService
   ) {
     super(i18nService, loggerService);
-    console.log(configService.get<String>("MONGODB_URI"));
   }
 
   @Post("")
