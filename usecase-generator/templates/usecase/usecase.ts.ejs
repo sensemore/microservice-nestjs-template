@@ -1,0 +1,21 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import { UseCase } from "util/usecase.base";
+import { <%=entityClassName %> } from "entities/domainEntities/<%=entityFileName %>";
+import {
+  <%= gatewayInterfaceName %>,
+} from "./entityGateways";
+import { errors } from "./errors";
+
+export class <%= usecaseClassName %> extends UseCase {
+  constructor(
+    private readonly <%= gatewayVariableName %>:<%= gatewayInterfaceName %>
+  ) {
+    super("<%= usecaseName%>");
+  }
+
+  async execute(): Promise<<%= entityClassName %>> {
+    
+    
+    return null;
+  }
+}

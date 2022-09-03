@@ -1,0 +1,13 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsNotEmpty,
+} from "class-validator";
+
+
+
+export class <%= requestClassName %> {
+  @ApiProperty({ required: true })
+  @IsNotEmpty({ message: "validation.shouldnotbeempty" })
+  readonly value: string;
+}

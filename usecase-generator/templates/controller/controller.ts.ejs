@@ -1,0 +1,55 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Post,
+} from "@nestjs/common";
+import { ApiExtraModels, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiResponseType } from "../../common/swagger/response.decorator";
+import { LoggerService } from "infrastructure/logger/logger.service";
+import { <%= responseClassName %> } from "./response";
+import { <%= requestClassName %> } from "./request";
+import { I18nService } from "nestjs-i18n";
+import { <%= usecaseClassName %> } from "usecases<%= usecase %>/usecase";
+import { BusinessError } from "util/business.error";
+import { errors } from "usecases/<%= usecase %>/errors";
+import { BaseController } from "infrastructure/common/baseController";
+import { AmqpConnection } from "@golevelup/nestjs-rabbitmq";
+import { ConfigService } from "@nestjs/config";
+
+@Controller("<%= controllerName %>")
+@ApiResponse({ status: 500, description: "Internal error" })
+@ApiExtraModels(<%= responseClassName %>)
+export class <%= controllerClassName %> extends BaseController {
+  constructor(
+    @Inject("USECASE") private readonly usecase: <%= usecaseClassName %>,
+    readonly loggerService: LoggerService,
+    readonly i18nService: I18nService,
+    private readonly amqpConnection: AmqpConnection,
+    private configService: ConfigService
+  ) {
+    super(i18nService, loggerService);
+  }
+
+  @<%=controllerMethodName%>("")
+  @ApiResponseType(<%= responseClassName %>, true)
+  async <%=controllerActionName%>(@Body() request: <%= requestClassName %>) {
+    try {
+      const rp = await this.usecase.execute( );
+
+
+
+      return new <%= responseClassName %>(rp);
+    } catch (e) {
+      if (e instanceof BusinessError) {
+        if (e.code == errors.SomeError) {
+          throw new HttpException(e, HttpStatus.NOT_FOUND);
+        }
+      }
+      throw e;
+    }
+  }
+}

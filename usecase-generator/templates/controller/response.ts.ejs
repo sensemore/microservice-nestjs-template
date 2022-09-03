@@ -1,0 +1,12 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import { ApiProperty } from "@nestjs/swagger";
+import { <%= entityClassName %> } from "entities/domainEntities/<%= entityFileName %>";
+
+export class <%= responseClassName %> {
+  @ApiProperty()
+  id: string;
+
+  constructor(d: <%= entityClassName %>) {
+    this.id = d.id;
+  }
+}

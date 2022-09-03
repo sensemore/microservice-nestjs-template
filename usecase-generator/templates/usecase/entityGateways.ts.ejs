@@ -1,0 +1,6 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import { <%= entityClassName  %> } from "entities/domainEntities/<%= entityFileName %>";
+
+export interface <%= gatewayInterfaceName  %> {
+  execute(): Promise<<%= entityClassName  %>>;
+}

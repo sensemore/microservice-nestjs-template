@@ -1,0 +1,32 @@
+/* Generated id = <%= uuid %>, version:<%= version %> */
+import { Module } from "@nestjs/common";
+import { <%= usecaseClassName %> } from "usecases/<%= usecaseName %>/usecase";
+import { <%= controllerClassName %> } from "./controller";
+import {
+  <%= gatewayeClassName %>,
+  GatewayModule,
+} from "./gateways";
+
+//Unfortunatelly typescript loses types of interfaces at the runtime.
+//thus nestjs cant resolve dependency for an interface
+//so we need to use a factory to resolve dependencies of usecase
+const usecase = {
+  provide: "USECASE",
+  useFactory: (
+    <%= gatewayVariableName %>: <%= gatewayeClassName %>,
+  ) => {
+    return new <%= usecaseClassName %>(
+      <%= gatewayVariableName %>
+          );
+  },
+  inject: [
+  <%= gatewayeClassName %>,
+  ],
+};
+
+@Module({
+  imports: [GatewayModule],
+  providers: [usecase],
+  controllers: [<%= controllerClassName %>],
+})
+export class <%= moduleClassName %> {}
