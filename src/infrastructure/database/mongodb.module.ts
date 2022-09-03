@@ -2,7 +2,7 @@ import { Global, Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 
-import { DeviceModel, DeviceSchema} from "./schemas/device.schema";
+import { DeviceModel, DeviceSchema } from "./schemas/device.schema";
 import { DeviceTypeModel, DeviceTypeSchema } from "./schemas/deviceType.schema";
 
 //bubbles
@@ -20,11 +20,15 @@ const importExports = [
     ...importExports,
     MongooseModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: async (config: ConfigService) => ({
-        uri: config.get<string>("MONGODB_URI"), // Loaded from .ENV
-      }),
+      useFactory: async (config: ConfigService) => {
+        let uri = config.get<string>("MONGODB_URI");
+        console.log(uri);
+        return {
+          uri: uri, // Loaded from .ENV
+        };
+    }
     }),
   ],
   exports: [...importExports],
 })
-export class MongoDbModule {}
+export class MongoDbModule { }
