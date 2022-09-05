@@ -22,7 +22,7 @@ const importExports = [
       inject: [ConfigService],
       useFactory: async (config: ConfigService) => {
         let uri = config.get<string>("MONGODB_URI");
-        console.log(uri);
+        // console.log(uri);
         return {
           uri: uri, // Loaded from .ENV
         };

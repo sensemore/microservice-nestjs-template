@@ -5,6 +5,18 @@ const uuid = require('uuid');
 const VERSION = "0.0.1";
 
 
+const findLineAndRemove = function (filename, lineToRemove) {
+    var data = fs.readFileSync(filename, 'utf8');
+    var lines = data.split("\n");;
+    var index = lines.indexOf(lineToRemove);
+    if (index > -1) {
+        lines.splice(index, 1);
+    }
+    var text = lines.join("\n");
+    fs.writeFileSync(filename, text, 'utf8');
+}
+
+
 let usecase_template = [__dirname, "templates/usecase/usecase.ts.ejs"].join("/");
 let usecase_test_template = [__dirname, "templates/usecase/usecase.spec.ts.ejs"].join("/");
 let gateway_template = [__dirname, "templates/usecase/entityGateways.ts.ejs"].join("/");
@@ -114,6 +126,8 @@ async function run(params) {
     fs.writeFileSync(["src/infrastructure/controllers", params.usecase, "request.ts"].join("/"), request_file);
     fs.writeFileSync(["src/infrastructure/controllers", params.usecase, "response.ts"].join("/"), response_file);
 
+    fs.appendFileSync("src/infrastructure/controllers/index.ts", `\nexport * from "./${params.usecase}/module";`);
+
 
 }
 
@@ -124,6 +138,8 @@ async function removeUsecase(usecase) {
 
     rimraf.sync(["src/usecases", usecase].join("/"));
     rimraf.sync(["src//infrastructure/controllers", usecase].join("/"));
+    findLineAndRemove("src/infrastructure/controllers/index.ts", `export * from "./${usecase}/module";`);
+    
     console.log("done");
     //remove usecase folder
 

@@ -25,7 +25,7 @@ const importExports = [
     parser: I18nJsonParser,
     fallbackLanguage: "en",
     parserOptions: {
-      path: path.join(__dirname, "../../i18n/"),
+      path: path.join(__dirname, "../i18n/"),
       watch: true,
     },
     resolvers: [

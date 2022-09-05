@@ -1,1 +1,1 @@
-export { CreateDeviceModule } from './createDevice/module';
+export * from './createDevice/module'; 

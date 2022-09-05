@@ -68,7 +68,9 @@ async function bootstrap_rest() {
   }
 
   const port = configService.get<number>("PORT");
-  await restApp.listen(port);
+  await restApp.listen(port,"0.0.0.0");
+
+  console.log("service started at port: " + port);
 }
 
 function bootstrap() {
