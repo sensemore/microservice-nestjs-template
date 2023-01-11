@@ -38,7 +38,7 @@
     "amqplib": "^0.8.0",
     "callsite": "^1.0.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "fastify-swagger": "^5.1.0",
     "find-in-files": "^0.5.0",
     "helmet": "^5.0.2",
