@@ -43,7 +43,7 @@
     "find-in-files": "^0.5.0",
     "helmet": "^5.0.2",
     "joi": "^17.6.0",
-    "mongoose": "^6.2.1",
+    "mongoose": "^6.12.0",
     "nestjs-i18n": "^8.3.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
